@@ -1,0 +1,28 @@
+{
+	"controllers": {
+		"pantilt": {
+			"port": "auto",
+			"sync_read": true,
+			"attached_motors": ["all"]
+		}
+	},
+	"motorgroups": {
+		"all": ["z", "y"]
+	},
+	"motors": {
+		"z": {
+			"id": 22,
+			"type": "AX-18",
+			"orientation": "direct",
+			"offset": 0,
+			"angle_limit": [-40,40]
+		},
+		"y": {
+			"id": 33,
+			"type": "AX-18",
+			"orientation": "direct",
+			"offset": 0,
+			"angle_limit": [-40,40]
+		}
+	}
+}
