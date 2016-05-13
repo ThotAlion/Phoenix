@@ -33,7 +33,13 @@ contains some simple algorithms with open cv
 - sudo apt-get install dphys-swapfile (to add swap partition)
 - sudo apt-get install openssh-server (to launch the SSH server for remote access)
 - reboot
+
 The Ubuntu system is now configured at the minimal configuration
+
+Install the Desktop
+- sudo apt-get upgrade (to upgrade all the packages... can take a long time)
+- sudo apt-get install lubuntu-desktop (to install the desktop environment)
+- sudo reboot
 
 
 # What to install on the "hive" computer (Windows 10)
