@@ -6,7 +6,7 @@ As far as possible, all is in Python2.7 language
 
 # Architecture
 ## The drone folder
-contains the embedded code for the raspberry pi on the drone
+contains the embedded code for the raspberry pi 2 on the drone
 
 ## The hive folder
 contains the code on the master computer Windows 10 which has high CPU.
@@ -19,20 +19,22 @@ This code operates a pan-tilt turret with a Logitech c525 webcam (http://www.log
 ## The test_opencv folder
 contains some simple algorithms with open cv
 
-# What to install on Raspberry Pi 3 on the drone
-- get a clean image of Raspbian Jessie Lite (no desktop)
-- sudo raspi-config to extend the file system, make the boot after network connexion
-- Config the wifi : sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
-- add in this file
+# What to install on Raspberry Pi 2 on the drone
+- get a clean image of Ubuntu 14.02 http://www.finnie.org/software/raspberrypi/2015-04-06-ubuntu-trusty.zip
+- connect on board with a screen and a keyboard
+- login : ubuntu, pass : ubuntu
+- sudo loadkeys fr (to configure azerty keyboard)
+- sudo fdisk /dev/mmcblk0 (d,2)(n,p,2,enter,enter)(w) (extend filesystem to the whole SD card)
+- reboot
+- sudo loadkeys fr
+- sudo resize2fs /dev/mmcblk0p2
+- sudo apt-get update
+- sudo apt-get install linux-firmware (wifi drivers)
+- sudo apt-get install dphys-swapfile (to add swap partition)
+- sudo apt-get install openssh-server (to launch the SSH server for remote access)
+- reboot
+The Ubuntu system is now configured at the minimal configuration
 
-network={
-  ssid="ssid of the wifi"
-  psk="password of the wifi"
-}
-
-- sudo apt-get install git (for importing this code)
-- sudo apt-get install ipython (the console environment for python)
-- TBC
 
 # What to install on the "hive" computer (Windows 10)
 - Install python(x,y) distrib : http://python-xy.github.io/
