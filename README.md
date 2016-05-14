@@ -19,7 +19,7 @@ This code operates a pan-tilt turret with a Logitech c525 webcam (http://www.log
 ## The test_opencv folder
 contains some simple algorithms with open cv
 
-# What to install on Raspberry Pi 2 on the drone
+# How to install ROS on Raspberry Pi 2 on the drone
 - get a clean image of Ubuntu 14.02 http://www.finnie.org/software/raspberrypi/2015-04-06-ubuntu-trusty.zip
 - connect on board with a screen and a keyboard
 - login : ubuntu, pass : ubuntu
