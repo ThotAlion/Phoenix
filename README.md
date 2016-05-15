@@ -44,7 +44,8 @@ The Ubuntu system is now configured at the minimal configuration and SSH remote 
 - sudo apt-get install lubuntu-desktop (to install the desktop environment)
 - sudo reboot
  
-## Install [ROS Indigo](http://wiki.ros.org/indigo/Installation/Ubuntu)
+## Install ROS Indigo
+Instructions are taken from [this tutorial.](http://wiki.ros.org/indigo/Installation/Ubuntu)
 - Setup the source list following this link : https://help.ubuntu.com/community/Repositories/Ubuntu
 - sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 - sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net --recv-key 0xB01FA116
@@ -83,6 +84,10 @@ The Pi shall connect to your WIFI. The Pi is now able to live completely wireles
 ## Wifi configuration (WIFI AC)
 For further experiments, we will use cristal clear Wifi 802.11ac... to be completed
 
+## needed Packages for drone
+[The packages availables for this configuration.](http://repositories.ros.org/status_page/ros_indigo_default.html)
+Install ARUCO
+- sudo apt-get install ros-indigo-aruco
 
 # What to install on the "hive" computer (Windows 10)
 - Install python(x,y) distrib : http://python-xy.github.io/
