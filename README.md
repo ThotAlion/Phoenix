@@ -19,6 +19,60 @@ This code operates a pan-tilt turret with a Logitech [c525 webcam](http://www.lo
 ## The test_opencv folder
 contains some simple algorithms with open cv
 
+# How to install ROS Jade on Raspberry Pi 3 (Jessie)
+## install Jessie Lite on Raspberry Pi 3
+- get a [clean image of Jessie Lite for Raspberry Pi 3](https://downloads.raspberrypi.org/raspbian_lite_latest)
+- Flash it on a micro-SD card (with [Win32diskimager](https://sourceforge.net/projects/win32diskimager/) on Windows)
+- Insert the SD in the Raspberry Pi and plug Ethernet and Power
+- Login in SSH mode login : pi, pass : raspberry
+```sudo raspi-config```
+- Expand File system
+- boot without login
+- choose slow boot to be sure to have network access
+- activate raspberry pi camera
+- ```sudo nano /etc/dphys-swapfile```
+- Configure so that ```CONF_SWAPSIZE=1024``` (the swap size must be enlarged to allow ROS installation
+- ```sudo reboot```
+## Install ROS Jade
+- ```sudo nano /etc/apt/sources.list```
+- add the following line to this file : ```deb http://packages.ros.org/ros/ubuntu jessie main```
+- ```sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 0xB01FA116```
+- ```sudo apt-get update```
+- ```sudo apt-get upgrade```
+- ```sudo apt-get install python-rosdep```
+- ```sudo apt-get install python-rosinstall-generator```
+- ```sudo apt-get install python-wstool```
+- ```sudo apt-get install python-rosinstall```
+- ```sudo apt-get install build-essential```
+- ```sudo rosdep init```
+- ```rosdep update```
+- ```mkdir ros_catkin_ws```
+- ```cd ros_catkin_ws/```
+- ```rosinstall_generator robot --rosdistro jade --deps --wet-only --tar > jade-robot-wet.rosinstall```
+- ```wstool init -j8 src jade-robot-wet.rosinstall```
+- ```rosdep install --from-paths src --ignore-src --rosdistro jade -y```
+- ```sudo nano src/robot_model/collada_urdf/src/collada_urdf.cpp```
+- add the following lines :
+
+```
+#ifdef __arm__                 // fix for ARM build
+#include <strings.h>
+bool Assimp::IOSystem::ComparePaths(const char *p1, const char *p2) const
+{
+   return !::strcasecmp(p1, p2);
+}
+#  endif
+```
+- ```./src/catkin/bin/catkin_make_isolated --install -DCMAKE_BUILD_TYPE=Release```
+- ```nano ~/.bashrc```
+- add to this file : ```source ~/ros_catkin_ws/install_isolated/setup.bash```
+
+## Install specific tools
+- ```sudo apt-get install python-pip```
+- ```sudo apt-get install ipython```
+- ```sudo pip install picamera```
+
+
 # How to install ROS on Raspberry Pi 2 on the drone
 Instead of having a "megascript" installing all, I describe the whole process of installation with explanations so that if you have an issue, you can understand easily and repair.
 ## Install Ubuntu Trusty 14.04
