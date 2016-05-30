@@ -31,8 +31,9 @@ contains some simple algorithms with open cv
 - choose slow boot to be sure to have network access
 - activate raspberry pi camera
 - ```sudo nano /etc/dphys-swapfile```
-- Configure so that ```CONF_SWAPSIZE=1024``` (the swap size must be enlarged to allow ROS installation
+- Configure so that ```CONF_SWAPSIZE=1024``` (the swap size must be enlarged to allow ROS installation)
 - ```sudo reboot```
+
 ## Install ROS Jade
 - ```sudo nano /etc/apt/sources.list```
 - add the following line to this file : ```deb http://packages.ros.org/ros/ubuntu jessie main```
@@ -48,6 +49,7 @@ contains some simple algorithms with open cv
 - ```rosdep update```
 - ```mkdir ros_catkin_ws```
 - ```cd ros_catkin_ws/```
+- For this project, I decided to install a restriction of ROS linked with perception and visual processing. With the line below, you can adapt according to your needs.
 - ```rosinstall_generator robot --rosdistro jade --deps --wet-only --tar > jade-robot-wet.rosinstall```
 - ```wstool init -j8 src jade-robot-wet.rosinstall```
 - ```rosdep install --from-paths src --ignore-src --rosdistro jade -y```
@@ -72,53 +74,8 @@ bool Assimp::IOSystem::ComparePaths(const char *p1, const char *p2) const
 - ```sudo apt-get install ipython```
 - ```sudo pip install picamera```
 
-
-# How to install ROS on Raspberry Pi 2 on the drone
-Instead of having a "megascript" installing all, I describe the whole process of installation with explanations so that if you have an issue, you can understand easily and repair.
-## Install Ubuntu Trusty 14.04
-- get a [clean image of Ubuntu 14.02](http://www.finnie.org/software/raspberrypi/2015-04-06-ubuntu-trusty.zip)
-- Flash it on a micro-SD card (with [Win32diskimager](https://sourceforge.net/projects/win32diskimager/) on Windows)
-- connect on board with a screen, a keyboard and an Ethernet connection to the web
-- login : ubuntu, pass : ubuntu
-- sudo loadkeys fr (to configure azerty keyboard)
-- sudo fdisk /dev/mmcblk0 (d,2)(n,p,2,enter,enter)(w) (extend filesystem to the whole SD card)
-- reboot
-- sudo loadkeys fr (to configure azerty keyboard)
-- sudo resize2fs /dev/mmcblk0p2
-- sudo apt-get update
-- sudo apt-get install linux-firmware (wifi drivers)
-- sudo apt-get install dphys-swapfile (to add swap partition)
-- sudo apt-get install openssh-server (to launch the SSH server for remote access)
-- reboot
-
-The Ubuntu system is now configured at the minimal configuration and SSH remote access
-
-## Install the Desktop environment
-- sudo loadkeys fr (to configure azerty keyboard)
-- sudo apt-get upgrade (to upgrade all the packages... can take a long time)
-- sudo apt-get install lubuntu-desktop (to install the desktop environment)
-- sudo reboot
-- On the desktop environment, change the language settings and date and time settings (on desktop tray).
- 
-## Install ROS Indigo
-Instructions are taken from [this tutorial.](http://wiki.ros.org/indigo/Installation/Ubuntu)
-- Setup the source list following this link : (https://help.ubuntu.com/community/Repositories/Ubuntu)
-- sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-- sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net --recv-key 0xB01FA116
-- sudo reboot
-- sudo apt-get update
-- sudo apt-get install ros-indigo-desktop
-- sudo rosdep init
-- rosdep update
-- echo "source /opt/ros/indigo/setup.bash" >> ~/.bashrc
-- source ~/.bashrc
-- source /opt/ros/indigo/setup.bash
-- sudo apt-get install python-rosinstall
-
-ROS is installed
-
 ## Wifi configuration (WIFI N)
-For the moment, let's install a classical WIFI 802.11N dongle as [EDIMAX-EW-7811UN](https://www.amazon.fr/Edimax-EW-7811UN-Nano-Adaptateur-sans/dp/B003MTTJOY)
+For the moment, let's install a classical WIFI 802.11N dongle as [EDIMAX-EW-7811UN](https://www.amazon.fr/Edimax-EW-7811UN-Nano-Adaptateur-sans/dp/B003MTTJOY) Or use the integrated Wifi of the RPI3
 - connect the WIFI dongle to the card
 - Edit the file /etc/network/interfaces and add the following lines :
 ```
@@ -138,60 +95,35 @@ network={
 The Pi shall connect to your WIFI. The Pi is now able to live completely wireless.
 
 ## Wifi configuration (WIFI AC)
-For further experiments, we will use cristal clear Wifi 802.11ac... to be completed
-
-## Install Raspberry Pi Cam V2.0
-the procedure is taken from [here](https://www.raspberrypi.org/forums/viewtopic.php?f=56&t=100553)
-- sudo nano /boot/config.txt
-- add the following lines at the end of the file /boot/config.txt : 
+For further experiments, we will use cristal clear Wifi 802.11ac with the dongle :
+[EDIMAX-EW-7811UTC](https://www.amazon.fr/Edimax-EW-7811UTC-Adaptateur-Wi-Fi-Noir/dp/B00GMY40T0/ref=sr_1_5?s=computers&ie=UTF8&qid=1464621556&sr=1-5)
+The process to install on Jessie : 
 ```
-start_x=1
-gpu_mem=128
-```
-- git clone https://github.com/raspberrypi/userland
-- perform the following modifications :
-```
-diff --git a/buildme b/buildme
-index ce8f516..7cef87d 100755
---- a/buildme
-+++ b/buildme
-@@ -2,10 +2,11 @@
+1. Connect the Pi to Ethernet.
+2. Update:
+sudo apt-get update
+sudo apt-get upgrade
 
- if [ "armv6l" = `arch` ]; then
-        # Native compile on the Raspberry Pi
-+       export LDFLAGS="-Wl,--no-as-needed"
-        mkdir -p build/raspberry/release
-        pushd build/raspberry/release
-        cmake -DCMAKE_BUILD_TYPE=Release ../../..
--       make
-+       make -j4
-        if [ "$1" != "" ]; then
-         sudo make install DESTDIR=$1
-        else
-diff --git a/makefiles/cmake/toolchains/arm-linux-gnueabihf.cmake b/makefiles/cmake/toolchains/arm-linux-gnueabihf.cmake
-index 575cc0e..a5bebcd 100644
---- a/makefiles/cmake/toolchains/arm-linux-gnueabihf.cmake
-+++ b/makefiles/cmake/toolchains/arm-linux-gnueabihf.cmake
-@@ -10,7 +10,8 @@ SET(CMAKE_ASM_COMPILER arm-linux-gnueabihf-gcc)
- SET(CMAKE_SYSTEM_PROCESSOR arm)
+3. Check OS version:
+uname -a
 
- #ADD_DEFINITIONS("-march=armv6")
--add_definitions("-mcpu=arm1176jzf-s -mfpu=vfp -mfloat-abi=hard")
-+#add_definitions("-mcpu=arm1176jzf-s -mfpu=vfp -mfloat-abi=hard")
-+add_definitions("-march=armv7-a -mfpu=neon -mfloat-abi=hard")
+Mine was 4.1.7-v7+ #817
+4. So the next step is (do this is a folder in your home directory):
+wget https://dl.dropboxusercontent.com/u/80256631/8812au-4.1.7-v7-817.tar.gz
 
- # rdynamic means the backtrace should work
- IF (CMAKE_BUILD_TYPE MATCHES "Debug")
+You have to update this according to your OS version (hopefully there is a build there).
+5. Next:
+tar xzf 8812au-4.1.7-v7-817.tar.gz
+
+6. Next:
+./install.sh
+
+7. Next:
+sudo reboo
+
+Then check that module was installed with:
+lsmod
 ```
-- cd /home/ubuntu/userland
-- sudo ./buildme (to compile the new version of userland)
-- export LD_LIBRARY_PATH=/opt/vc/lib/:$LD_LIBRARY_PATH
-- sudo reboot
-- 
-## needed Packages for drone
-[The packages availables for this configuration.](http://repositories.ros.org/status_page/ros_indigo_default.html)
-Install ARUCO
-- sudo apt-get install ros-indigo-aruco
 
 # What to install on the "hive" computer (Windows 10)
 - Install python(x,y) distrib : http://python-xy.github.io/
