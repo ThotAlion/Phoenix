@@ -20,6 +20,12 @@ This code operates a pan-tilt turret with a Logitech [c525 webcam](http://www.lo
 contains some simple algorithms with open cv
 
 # How to install ROS Jade on Raspberry Pi 3 (Jessie)
+
+If any issue, please refer to :
+- https://forum.poppy-project.org/t/raspberry-pi-3-experiments/2456/6
+- http://wiki.ros.org/jade/Installation/Source
+- http://wiki.ros.org/jade/Installation/Ubuntu#jade.2BAC8-Installation.2BAC8-Sources.Setup_your_sources.list
+
 ## install Jessie Lite on Raspberry Pi 3
 - get a [clean image of Jessie Lite for Raspberry Pi 3](https://downloads.raspberrypi.org/raspbian_lite_latest)
 - Flash it on a micro-SD card (with [Win32diskimager](https://sourceforge.net/projects/win32diskimager/) on Windows)
