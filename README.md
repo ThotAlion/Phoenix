@@ -130,6 +130,18 @@ sudo reboo
 Then check that module was installed with:
 lsmod
 ```
+## activate serial port on Raspberry Pi 3 to connect Naze32
+By default, the serial port of the RPi3 is connected to the Bluetooth module. Therefore, here are the following command to execute :
+- ```sudo apt-get update```
+- ```sudo apt-get upgrade```
+- ```sudo rpi-update```
+- In the file /boot/config.txt add the following lines :
+```
+dtoverlay=pi3-disable-bt
+enable_uart=1
+```
+- ```sudo reboot```
+
 
 # What to install on the "hive" computer (Windows 10)
 - Install python(x,y) distrib : http://python-xy.github.io/
