@@ -18,10 +18,10 @@ while goon:
     pygame.event.get()
     j = pygame.joystick.Joystick(0)
     j.init()
-    req["pad"][0] = int(1500+500*j.get_axis(1))
-    req["pad"][1] = 1500
-    req["pad"][2] = int(1000-1000*j.get_axis(2))
-    req["pad"][3] = int(1500+500*j.get_axis(0))
+    req["pad"][0] = int(1500+500*0.5*j.get_axis(4))
+    req["pad"][1] = int(1500-500*0.5*j.get_axis(3))
+    req["pad"][2] = int(1000-700*j.get_axis(2))
+    req["pad"][3] = int(1500+1000*0.5*j.get_axis(0))
     for i in range(8):
         if req["pad"][i]<1010:
             req["pad"][i]=1000
