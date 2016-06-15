@@ -2,7 +2,7 @@ import pygame
 import zmq
 import time
 
-IP = '10.0.0.3'
+IP = '10.0.0.2'
 
 c = zmq.Context()
 s = c.socket(zmq.REQ)
@@ -28,5 +28,6 @@ while goon:
         if req["pad"][i]>1990:
             req["pad"][i]=2000
     s.send_json(req)
-    s.recv_json()
+    a = s.recv_json()
+    print a
     time.sleep(0.01)
