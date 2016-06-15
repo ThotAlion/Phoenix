@@ -3,6 +3,7 @@ Airborne and hive code for Phoenix dance project
 
 # main remarks
 As far as possible, all is in Python2.7 language
+Multiwii Serial Protocol is well described [Here](http://www.multiwii.com/wiki/index.php?title=Multiwii_Serial_Protocol)
 
 # Architecture
 ## The drone folder
