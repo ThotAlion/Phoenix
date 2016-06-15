@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/pi/Phoenix/drone_ws/devel/setup.sh
