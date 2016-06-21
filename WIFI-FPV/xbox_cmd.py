@@ -15,6 +15,7 @@ goon = True
 req = {}
 req["pad"] = [1000,1000,1000,1000,1000,1000,1000,1000]
 while goon:
+    t0 = time.clock()
     pygame.event.get()
     j = pygame.joystick.Joystick(0)
     j.init()
@@ -30,4 +31,3 @@ while goon:
     s.send_json(req)
     a = s.recv_json()
     print a
-    time.sleep(0.01)
