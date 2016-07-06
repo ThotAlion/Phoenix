@@ -67,7 +67,7 @@ set(raspicam_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("TRUE" STREQUAL "TRUE")
-  set(raspicam_SOURCE_PREFIX /home/pi/Phoenix/drone_ws/src/raspicam)
+  set(raspicam_SOURCE_PREFIX /home/pi/Phoenix/drone_ws/src/raspicam_node)
   set(raspicam_DEVEL_PREFIX /home/pi/Phoenix/drone_ws/devel)
   set(raspicam_INSTALL_PREFIX "")
   set(raspicam_PREFIX ${raspicam_DEVEL_PREFIX})
@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(raspicam_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT "/home/pi/Phoenix/drone_ws/src/raspicam/include " STREQUAL " ")
+if(NOT "/home/pi/Phoenix/drone_ws/src/raspicam_node/include " STREQUAL " ")
   set(raspicam_INCLUDE_DIRS "")
-  set(_include_dirs "/home/pi/Phoenix/drone_ws/src/raspicam/include")
+  set(_include_dirs "/home/pi/Phoenix/drone_ws/src/raspicam_node/include")
   foreach(idir ${_include_dirs})
     if(IS_ABSOLUTE ${idir} AND IS_DIRECTORY ${idir})
       set(include ${idir})
@@ -103,7 +103,7 @@ if(NOT "/home/pi/Phoenix/drone_ws/src/raspicam/include " STREQUAL " ")
         message(FATAL_ERROR "Project 'raspicam' specifies '${idir}' as an include dir, which is not found.  It does not exist in '${include}'.  Ask the maintainer 'pi <pi@todo.todo>' to fix it.")
       endif()
     else()
-      message(FATAL_ERROR "Project 'raspicam' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/pi/Phoenix/drone_ws/src/raspicam/${idir}'.  Ask the maintainer 'pi <pi@todo.todo>' to fix it.")
+      message(FATAL_ERROR "Project 'raspicam' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/pi/Phoenix/drone_ws/src/raspicam_node/${idir}'.  Ask the maintainer 'pi <pi@todo.todo>' to fix it.")
     endif()
     _list_append_unique(raspicam_INCLUDE_DIRS ${include})
   endforeach()
@@ -122,7 +122,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/pi/Phoenix/drone_ws/devel/lib;/home/pi/ros_catkin_ws/install_isolated/lib)
+    foreach(path /home/pi/Phoenix/drone_ws/devel/lib;/home/pi/Phoenix/drone_ws/devel/lib;/home/pi/ros_catkin_ws/install_isolated/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
