@@ -26,6 +26,7 @@ def send_command(msg):
     channels[5] = 1000
     channels[6] = 1000
     channels[7] = 1000
+    print channels
 
 
 

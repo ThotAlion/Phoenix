@@ -2,4 +2,5 @@
     <node name="naze32" pkg="multiwii" type="ros_multiwii.py" />
     <node name="eye" pkg="raspicam" type="raspicam_raw_node"/>
     <node name="streamer" pkg="web_video_server" type="web_video_server"/>
+    <node name="rc" pkg="radio_zmq" type="radio_zmq.py"/>
 </launch>
